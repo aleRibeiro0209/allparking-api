@@ -28,10 +28,13 @@ class Registro {
     public function insertCostumer() {
         $sql = 'INSERT INTO tbRegistro (nomeCliente, placaCarro, dataHoraEntrada, precoId) VALUES (?, ?, ?, ?)';
 
+        $data = new DateTime($this->dataHoraEntrada);
+        $dataFormatada = $data->format('Y-m-d H:i:s');
+
         $stmt = Model::getConn()->prepare($sql);
         $stmt->bindValue(1, $this->nomeCliente);
         $stmt->bindValue(2, $this->placaCarro);
-        $stmt->bindValue(3, $this->dataHoraEntrada);
+        $stmt->bindValue(3, $dataFormatada);
         $stmt->bindValue(4, $this->precoId);
 
         if ($stmt->execute()) {
